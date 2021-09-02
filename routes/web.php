@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\TagController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,10 +25,13 @@ Auth::routes();
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home'); //not need
 
-
-Route::group(['as'=>'admin.','namespace' => 'Admin','prefix' => 'admin','middleware' => ['auth','admin']], function() {
+//'namespace' => 'Admin',-->why show problem
+Route::group(['as'=>'admin.','prefix' => 'admin','middleware' => ['auth','admin']], function() {
     Route::get('dashboard',[DashboardController::class,'index'])->name('dashboard');
+    Route:: resource('tag',TagController::class);
+    Route:: resource('category',CategoryController::class);
 });
+
 
 Route::group(['as'=>'author.','namespace' => 'Author','prefix' => 'author','middleware' => ['auth','author']], function() {
     Route::get('dashboard',[DashboardController::class,'index'])->name('dashboard');
